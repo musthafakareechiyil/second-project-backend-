@@ -5,7 +5,7 @@ class Admin::AuthenticationController < ApplicationController
         @admin = Admin.find_by_email(params[:email])
         if @admin&.authenticate(params[:password])
             token = jwt_encode(admin_id: @admin.id)
-            render json: { token: token}, status: :ok
+            render json: { token: token,admin: @admin}, status: :ok
         else
             render json: { error: "invalid email or password" }, status: :unauthorized
         end
