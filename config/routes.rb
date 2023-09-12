@@ -2,8 +2,11 @@ Rails.application.routes.draw do
 
   namespace :user do
     resources :users, only: [:create]
+    post 'login', to: 'authentication#login'
   end
-  post 'user/login', to: 'user/authentication#login'
 
-  post 'admin/login', to: 'admin/authentication#login'
+  namespace :admin do
+    post 'login', to: 'authentication#login'
+  end
+  
 end
