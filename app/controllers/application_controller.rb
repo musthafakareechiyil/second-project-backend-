@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
     include JwtToken
 
-    before_action :authenticate_request
+    before_action :authenticate_request,unless: :admin_request?
 
     private
 
@@ -24,6 +24,18 @@ class ApplicationController < ActionController::API
             render json: { error:"unauthorized" }, status: :unauthorized
         end
 
+    end
+
+    def admin_request? 
+        controller_path.start_with?("admin/")
+    end
+
+    protected
+
+    def authenticate_admin
+        unless @admin 
+            render json: { error: 'Admin authentication required' },status: :unauthorized
+        end
     end
 
     # def authenticate_request

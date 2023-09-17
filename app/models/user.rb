@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
+    acts_as_paranoid
 
     validates :email, presence: true, uniqueness: true,format: { with: URI::MailTo::EMAIL_REGEXP }, if: -> { phone.nil? }
     validates :phone, presence: true, uniqueness: true,length: {minimum: 10}, if: -> { email.nil? }

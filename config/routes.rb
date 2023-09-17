@@ -7,6 +7,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
     post 'login', to: 'authentication#login'
+
+    resources :usermanagment do
+      member do
+        post :block
+        post :unblock
+      end
+    end
+    
   end
   
 end
