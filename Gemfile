@@ -25,3 +25,5 @@ gem "jwt", "~> 2.7"
 gem "rack-cors", "~> 2.0"
 
 gem "acts_as_paranoid", "~> 0.8.1"
+
+gem "googleauth", "~> 1.8"

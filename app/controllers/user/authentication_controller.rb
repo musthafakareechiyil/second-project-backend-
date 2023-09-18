@@ -1,20 +1,39 @@
 class User::AuthenticationController < ApplicationController
     skip_before_action :authenticate_request
 
-    def login 
-        @user = if params[:email].present?
-                    User.find_by_email(params[:email])
-                elsif params[:phone].present?
-                    User.find_by_phone(params[:phone])
-                else
-                    User.find_by_username(params[:username])
-                end
+    def login
+        if params[:google_token]
+            google_token = params[:google_token]
+            id_token = Google::Auth::IDTokens.verify_oidc(google_token, aud:'439877519923-qpmbcqt3gb88svahhi65hnal1nkelfc6.apps.googleusercontent.com')
 
-        if @user&.authenticate(params[:password])
-            token = jwt_encode(user_id: @user.id)
-            render json: { token: token, user: @user}, status: :ok
+            if id_token
+                email = id_token['email']
+                @user = User.find_by_email(email)
+                
+                if @user
+                    token = jwt_encode(user_id: @user.id)
+                    render json: { token: token, user: @user}, status: :ok
+                else
+                    render json: { error: "User not registered" }, status: :unprocessable_entity
+                end
+            else
+                render json: { error: 'Invalid Google token' }, status: :unauthorized
+            end
         else
-            render json: { error: 'invalid credentials' }, status: :unauthorized
+            @user = if params[:email].present?
+                        User.find_by_email(params[:email])
+                    elsif params[:phone].present?
+                        User.find_by_phone(params[:phone])
+                    else
+                        User.find_by_username(params[:username])
+                    end
+
+            if @user&.authenticate(params[:password])
+                token = jwt_encode(user_id: @user.id)
+                render json: { token: token, user: @user}, status: :ok
+            else
+                render json: { error: 'invalid credentials' }, status: :unauthorized
+            end
         end
     end
 end
