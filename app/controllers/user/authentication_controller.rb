@@ -19,6 +19,8 @@ class User::AuthenticationController < ApplicationController
             else
                 render json: { error: 'Invalid Google token' }, status: :unauthorized
             end
+        elsif params[:phone_token]
+            render json: { message: "phone token recieved in backend"},status: :ok
         else
             @user = if params[:email].present?
                         User.find_by_email(params[:email])

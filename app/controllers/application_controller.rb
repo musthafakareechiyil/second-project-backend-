@@ -38,12 +38,4 @@ class ApplicationController < ActionController::API
         end
     end
 
-    # def authenticate_request
-    #     header = request.headers["Authorization"]
-    #     header = header.split(" ").last if header
-    #     decoded = jwt_decode(header)
-    #     @user = User.find(decoded[:user_id])
-    #     @admin = Admin.find(decoded[:admin_id])
-    # end
-
 end
