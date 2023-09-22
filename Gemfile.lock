@@ -83,6 +83,8 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     erubi (1.12.0)
+    faker (3.2.1)
+      i18n (>= 1.8.11, < 2)
     faraday (2.7.11)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -199,6 +201,7 @@ DEPENDENCIES
   bcrypt (~> 3.1)
   bootsnap
   debug
+  faker (~> 3.2)
   googleauth (~> 1.8)
   jwt (~> 2.7)
   pg (~> 1.1)

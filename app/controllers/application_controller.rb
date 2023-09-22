@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
     include JwtToken
 
-    before_action :authenticate_request,unless: :admin_request?
+    before_action :authenticate_request
 
     private
 
@@ -9,7 +9,8 @@ class ApplicationController < ActionController::API
         header = request.headers["Authorization"]
 
         if header
-            token = header.split(" ")
+            token = header.split(" ")[1]
+            p token
             decoded = jwt_decode(token)
 
             if decoded.key?(:user_id)
@@ -23,11 +24,6 @@ class ApplicationController < ActionController::API
         else
             render json: { error:"unauthorized" }, status: :unauthorized
         end
-
-    end
-
-    def admin_request? 
-        controller_path.start_with?("admin/")
     end
 
     protected
