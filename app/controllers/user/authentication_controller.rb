@@ -1,4 +1,5 @@
 class User::AuthenticationController < ApplicationController
+    include JwtToken
     skip_before_action :authenticate_request
 
     def login
@@ -21,6 +22,19 @@ class User::AuthenticationController < ApplicationController
             end
         elsif params[:phone_token]
             render json: { message: "phone token recieved in backend"},status: :ok
+            phone_token = params[:phone_token]
+            decoded = jwt_decode_rs256(phone_token)
+
+            if decoded.key?(:phone_number)
+                @user = User.find_by_phone(decoded[:phone_number])
+                if @user
+                    render json: { user: @user}, status: :ok
+                else
+                    render json: { error: "User not registered" }, status: :unprocessable_entity
+                end
+            else
+                render json: { error: "Invalid token" }, status: :unprocessable_entity
+            end
         else
             @user = if params[:email].present?
                         User.find_by_email(params[:email])
