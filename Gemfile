@@ -28,4 +28,4 @@ gem "acts_as_paranoid", "~> 0.8.1"
 
 gem "googleauth", "~> 1.8"
 
-gem "faker", "~> 3.2" require: false
+gem "faker", "~> 3.2" 

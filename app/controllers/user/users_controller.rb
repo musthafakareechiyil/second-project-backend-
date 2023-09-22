@@ -3,7 +3,7 @@ class User::UsersController < ApplicationController
 
     def create 
         @user = User.new(user_params)
-
+        @user.phone = "+91"+@user.phone if @user.phone.present?
         if @user.save 
             render json: @user, status: :created
         else
