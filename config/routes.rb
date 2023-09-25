@@ -12,9 +12,12 @@ Rails.application.routes.draw do
       member do
         post :block
         post :unblock
+        post :recover_user
       end
     end
     
   end
-  
+
+
+
 end

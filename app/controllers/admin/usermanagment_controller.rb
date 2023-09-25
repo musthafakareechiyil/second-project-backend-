@@ -1,9 +1,9 @@
 class Admin::UsermanagmentController < ApplicationController
     before_action :authenticate_admin
-    before_action :find_user, only: [:show,:update,:destroy,:block ,:unblock]
+    before_action :find_user, only: [:show,:update,:destroy,:block ,:unblock,:recover_user]
 
     def index
-        @users = User.all
+        @users = User.with_deleted.all
         render json: @users
     end
 
@@ -45,17 +45,24 @@ class Admin::UsermanagmentController < ApplicationController
         if @user.update(blocked: false)
             render json: @user, notice: 'User unblocked!'
         else
-            render json: @user.errors, statsu: :unprocessable_entity
+            render json: @user.errors, status: :unprocessable_entity
         end
+    end
+
+    def recover_user
+        @user.recover
+        @user.save(validate: false)
+
+        render json: @user, notice: 'User restored successfully'
     end
 
     private 
 
     def user_params 
-        params.require(:user).permit(:email,:phone,:password,:usermame,:fullname)
+        params.require(:user).permit(:email,:phone,:password,:username,:fullname)
     end
 
     def find_user 
-        @user = User.find(params[:id])
+        @user = User.with_deleted.find(params[:id])
     end
 end
