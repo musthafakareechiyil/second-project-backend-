@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :admin do
     post 'login', to: 'authentication#login'
 
-    resources :usermanagment do
+    resources :usermanagment, only: [:index, :show, :destroy] do
       member do
         patch :block
         post :recover_user
