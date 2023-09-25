@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
 
         if header
             token = header.split(" ")[1]
-            p token
             decoded = jwt_decode(token)
 
             if decoded.key?(:user_id)

@@ -10,8 +10,7 @@ Rails.application.routes.draw do
 
     resources :usermanagment do
       member do
-        post :block
-        post :unblock
+        patch :block
         post :recover_user
       end
     end
