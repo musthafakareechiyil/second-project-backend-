@@ -15,6 +15,8 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "faker", "~> 3.2" 
+  gem "pry", "~> 0.14.2"
   gem 'rubocop', require: false
 end
 
@@ -29,4 +31,3 @@ gem "acts_as_paranoid", "~> 0.8.1"
 
 gem "googleauth", "~> 1.8"
 
-gem "faker", "~> 3.2" 
