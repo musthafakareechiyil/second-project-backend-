@@ -7,4 +7,10 @@ class User < ApplicationRecord
     validates :fullname, presence: true
     validates :username, presence: true, uniqueness: true
     validates :password, presence: true, length: {minimum:8}
+
+    has_many :follower_relation, class_name: 'Follow', foreign_key: 'following_id', dependent: :destroy, inverse_of: :following
+    has_many :followers, through: :follower_relation, source: :follower
+
+    has_many :following_relation, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy, inverse_of: :follower
+    has_many :following, through: :following_relation, source: :following
 end

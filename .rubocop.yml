@@ -5,4 +5,8 @@ Gemspec/DeprecatedAttributeAssignment:
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
 
+Style/Documentation:
+  Enabled: false
