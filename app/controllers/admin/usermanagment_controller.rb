@@ -17,7 +17,9 @@ class Admin::UsermanagmentController < ApplicationController
     end
 
     def block 
+        # rubocop:disable Rails/SkipsModelValidations
         @user.update_column(:blocked, !@user.blocked)
+        # rubocop:enable Rails/SkipsModelValidations
         if @user.blocked?
             render json: @user, notice: 'User blocked'
         else

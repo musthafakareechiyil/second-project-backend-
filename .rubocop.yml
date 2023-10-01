@@ -13,3 +13,6 @@ Style/Documentation:
 
 Lint/ClassAndModuleChildren:
   Enabled: false
+
+require:
+  - rubocop-rails

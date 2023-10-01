@@ -21,6 +21,8 @@ group :development, :test do
   gem "pry", "~> 0.14.2"
 
   gem 'rubocop', require: false
+
+  gem "rubocop-rails", "~> 2.21", require: false
 end
 
 gem "bcrypt", "~> 3.1"

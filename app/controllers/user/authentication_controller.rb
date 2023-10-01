@@ -9,7 +9,7 @@ class User::AuthenticationController < ApplicationController
 
             if id_token
                 email = id_token['email']
-                @user = User.find_by_email(email)
+                @user = User.find_by(email: email)
                 
                 if @user
                     token = jwt_encode(user_id: @user.id)
@@ -26,7 +26,7 @@ class User::AuthenticationController < ApplicationController
             decoded = jwt_decode_rs256(phone_token)
 
             if decoded.key?(:phone_number)
-                @user = User.find_by_phone(decoded[:phone_number])
+                @user = User.find_by(phone: decoded[:phone_number])
                 if @user
                     token = jwt_encode(user_id: @user.id)
                     render json: { token: token,user: @user}, status: :ok
@@ -39,11 +39,11 @@ class User::AuthenticationController < ApplicationController
 
         else
             @user = if params[:email].present?
-                        User.find_by_email(params[:email])
+                        User.find_by(email: params[:email])
                     elsif params[:phone].present?
-                        User.find_by_phone(params[:phone])
+                        User.find_by(phone: params[:phone])
                     else
-                        User.find_by_username(params[:username])
+                        User.find_by(username: params[:username])
                     end
 
             if @user&.authenticate(params[:password])
