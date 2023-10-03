@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
             decoded = jwt_decode(token)
 
             if decoded.key?(:user_id)
-                @user = User.find(decoded[:user_id])
+                @current_user = User.find(decoded[:user_id])
             elsif decoded.key?(:admin_id)
                 @admin = Admin.find(decoded[:admin_id])
             else

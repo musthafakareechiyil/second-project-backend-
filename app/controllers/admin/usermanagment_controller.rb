@@ -3,7 +3,7 @@ class Admin::UsermanagmentController < ApplicationController
     before_action :find_user, only: [:show,:destroy,:block,:recover_user]
 
     def index
-        @users = User.with_deleted.all
+        @users = User.with_deleted.order(created_at: :asc).page(params[:page]).per(10)
         render json: @users
     end
 
