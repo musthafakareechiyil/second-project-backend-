@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :user do
     post ':username/follow_user', to: 'follow#follow_user'
     post ':username/unfollow_user', to: 'follow#unfollow_user'
-    resources :users, only: [:create, :index]
+    resources :users, only: [:create, :index, :show]
     post 'login', to: 'authentication#login'
   end
 

@@ -1,10 +1,21 @@
 class User::UsersController < ApplicationController
     skip_before_action :authenticate_request, only: [:create]
-    # before_action :find_user, only: %i[index]
 
     def index
         @users = User.where.not(id: @current_user.following.pluck(:id)).page(params[:page]).per(10)
         render json: @users
+    end
+
+    def show
+        following_count = @current_user.following.count
+        followers_count = @current_user.followers.count
+        post_count = @current_user.posts.count
+
+        render json: {
+          following_count:,
+          followers_count:,
+          post_count:
+        }          
     end
 
     def create 
@@ -21,10 +32,6 @@ class User::UsersController < ApplicationController
     private 
 
     def user_params 
-        params.require(:user).permit(:email, :phone, :fullname, :username, :password)
+        params.require(:user).permit(:email, :phone, :fullname, :username, :password, :profile_url)
     end
-
-    # def find_user
-    #     @user = User.find(params[:id])
-    # end
 end

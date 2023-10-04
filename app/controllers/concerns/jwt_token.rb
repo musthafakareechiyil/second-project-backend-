@@ -11,11 +11,11 @@ module JwtToken
 
     def jwt_decode(token)
         decoded = JWT.decode(token, SECRET_KEY)[0]
-        HashWithIndifferentAccess.new(decoded)
+        ActiveSupport::HashWithIndifferentAccess.new(decoded)
     end
 
     def jwt_decode_rs256(token)
         decoded = JWT.decode(token, SECRET_KEY, false, algorithm: 'RS256')[0]
-        HashWithIndifferentAccess.new(decoded)
+        ActiveSupport::HashWithIndifferentAccess.new(decoded)
     end
 end
