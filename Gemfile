@@ -31,8 +31,10 @@ gem "jwt", "~> 2.7"
 
 gem "rack-cors", "~> 2.0"
 
+# For soft deletes
 gem "acts_as_paranoid", "~> 0.8.1"
 
 gem "googleauth", "~> 1.8"
 
+# Pagination
 gem "kaminari", "~> 1.2"

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :index, :show]
     patch 'update_profile', to: 'users#update_profile'
     post 'login', to: 'authentication#login'
+
+    resources :posts, only: [:create, :index]
   end
 
   namespace :admin do
