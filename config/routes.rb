@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     post ':username/follow_user', to: 'follow#follow_user'
     post ':username/unfollow_user', to: 'follow#unfollow_user'
     resources :users, only: [:create, :index, :show]
+    patch 'update_profile', to: 'users#update_profile'
     post 'login', to: 'authentication#login'
   end
 

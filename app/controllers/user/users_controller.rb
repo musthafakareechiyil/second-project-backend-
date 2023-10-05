@@ -15,7 +15,7 @@ class User::UsersController < ApplicationController
           following_count:,
           followers_count:,
           post_count:
-        }          
+        }        
     end
 
     def create 
@@ -28,6 +28,24 @@ class User::UsersController < ApplicationController
                    status: :unprocessable_entity
         end
     end
+
+    def update_profile
+        if params[:profile_url].present?
+          # rubocop:disable Rails/SkipsModelValidations
+          if @current_user.update_columns(profile_url: params[:profile_url])
+            # rubocop:enable Rails/SkipsModelValidations
+            render json: @current_user
+          else
+            render json: { errors: @current_user.errors.full_messages }, status: :unprocessable_entity
+          end
+        else
+          render json: { errors: 'Missing profile_url parameter' }, status: :unprocessable_entity
+        end
+    end
+      
+      
+      
+      
 
     private 
 
