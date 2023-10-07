@@ -38,3 +38,5 @@ gem "googleauth", "~> 1.8"
 
 # Pagination
 gem "kaminari", "~> 1.2"
+
+gem "jsonapi.rb", "~> 2.0"
