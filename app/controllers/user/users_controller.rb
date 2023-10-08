@@ -7,11 +7,13 @@ class User::UsersController < ApplicationController
     end
 
     def show
+        posts = @current_user.posts.order(created_at: :desc).pluck(:post_url)
         following_count = @current_user.following.count
         followers_count = @current_user.followers.count
         post_count = @current_user.posts.count
 
         render json: {
+          posts:,
           following_count:,
           followers_count:,
           post_count:
