@@ -44,10 +44,6 @@ class User::UsersController < ApplicationController
           render json: { errors: 'Missing profile_url parameter' }, status: :unprocessable_entity
         end
     end
-      
-      
-      
-      
 
     private 
 
