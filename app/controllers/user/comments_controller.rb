@@ -1,7 +1,11 @@
 class User::CommentsController < ApplicationController
   def index
-    @comments = Comment.includes(:user).order(created_at: :desc).limit(5).page(page)
-    render json: @comments
+    page = params[:page] || 1
+    @comments = Comment.includes(:user).order(created_at: :desc).page(page).per(5)
+    render json: @comments.as_json(
+      only: [:id, :body],
+      include: { user: { only: [:profile_url, :username] } }
+    )
   end
 
   def create
