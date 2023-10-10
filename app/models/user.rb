@@ -13,9 +13,12 @@ class User < ApplicationRecord
     validate :username_format
 
     def username_format
-        return unless username.present? && (username != username.downcase || username.match(/\s/))
+      return if username.blank?
 
-        errors.add(username, "username must be in downcase and cannot contain spaces")
+      formatted_username = username.strip
+      formatted_username.gsub!(/[ .]/,'_') if /[ .A-Z]/.match?(formatted_username)
+
+      self.username = formatted_username.downcase if formatted_username && username != formatted_username
     end
 
     has_many :follower_relation, class_name: 'Follow', foreign_key: 'following_id', dependent: :destroy, inverse_of: :following

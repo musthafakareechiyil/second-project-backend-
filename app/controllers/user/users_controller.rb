@@ -2,8 +2,15 @@ class User::UsersController < ApplicationController
     skip_before_action :authenticate_request, only: [:create]
 
     def index
-        @users = User.where.not(id: @current_user.following.pluck(:id)).page(params[:page]).per(10)
-        render json: @users
+      # suggesting users to follow according to posts count
+      @users = User.where.not(id: @current_user.following.pluck(:id))
+                   .joins('LEFT JOIN posts ON users.id = posts.user_id')
+                   .group('users.id')
+                   .order('COUNT(posts.id) DESC')
+                   .page(params[:page])
+                   .per(10)
+
+      render json: @users
     end
 
     def show
