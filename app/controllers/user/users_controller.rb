@@ -14,12 +14,14 @@ class User::UsersController < ApplicationController
     end
 
     def show
-        posts = @current_user.posts.order(created_at: :desc).pluck(:post_url)
-        following_count = @current_user.following.count
-        followers_count = @current_user.followers.count
-        post_count = @current_user.posts.count
+        @user = User.find_by(username: params[:username])
+        posts = @user.posts.order(created_at: :desc).pluck(:post_url)
+        following_count = @user.following.count
+        followers_count = @user.followers.count
+        post_count = @user.posts.count
 
         render json: {
+          user: @user.as_json,
           posts:,
           following_count:,
           followers_count:,

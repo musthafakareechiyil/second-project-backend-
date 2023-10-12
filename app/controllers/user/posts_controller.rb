@@ -33,7 +33,8 @@ class User::PostsController < ApplicationController
     if @post.save
       render json: {
         post: @post.as_json(
-        include: { user: { only: [:id, :profile_url, :username]}})
+          include: { user: { only: [:id, :profile_url, :username] } }
+        )
       }, status: :created
     else
       render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
