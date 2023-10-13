@@ -25,18 +25,23 @@ group :development, :test do
   gem "rubocop-rails", "~> 2.21", require: false
 end
 
+# Password encryption
 gem "bcrypt", "~> 3.1"
 
+# JWT support
 gem "jwt", "~> 2.7"
 
+# Handling cors sharing
 gem "rack-cors", "~> 2.0"
 
 # For soft deletes
 gem "acts_as_paranoid", "~> 0.8.1"
 
+# For decoding the google auth response
 gem "googleauth", "~> 1.8"
 
 # Pagination
 gem "kaminari", "~> 1.2"
 
+# For serialization
 gem "jsonapi.rb", "~> 2.0"
