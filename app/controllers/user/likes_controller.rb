@@ -1,18 +1,12 @@
 class User::LikesController < ApplicationController
   def create
-    @like = Like.new(likes_params)
-    @like.user = @current_user
+    likable_id = params[:likable_id]
+    likable_type = params[:likable_type]
 
-    if @like.save
-      render json: @like, status: :created
+    if @current_user.like(likable_type, likable_id)
+      render json: { message: 'reuquest success' }
     else
       render json: { errors: @like.errors.full_messages }, status: :unauthorized
     end
-  end
-
-  private
-
-  def likes_params
-    params.require(:likes).permit(:likable_id, :likable_type)
   end
 end
