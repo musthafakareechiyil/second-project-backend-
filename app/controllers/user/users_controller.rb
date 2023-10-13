@@ -15,7 +15,7 @@ class User::UsersController < ApplicationController
 
     def show
         @user = User.find_by(username: params[:username])
-        posts = @user.posts.order(created_at: :desc).pluck(:post_url)
+        posts = @user.posts.order(created_at: :desc)
         following_count = @user.following.count
         followers_count = @user.followers.count
         post_count = @user.posts.count
