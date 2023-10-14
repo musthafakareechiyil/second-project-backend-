@@ -45,8 +45,14 @@ class User < ApplicationRecord
 
     if like
       like.destroy
+      false
     else
-     likes.create(likable:)
+      likes.create(likable:)
+      true
     end
+  end
+
+  def liked?(post)
+    likes.exists?(likable: post)
   end
 end

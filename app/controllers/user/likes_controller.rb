@@ -3,10 +3,12 @@ class User::LikesController < ApplicationController
     likable_id = params[:likable_id]
     likable_type = params[:likable_type]
 
-    if @current_user.like(likable_type, likable_id)
-      render json: { message: 'reuquest success' }
+    liked = @current_user.like(likable_type, likable_id)
+
+    if liked
+      render json: { message: 'Liked', liked: true }
     else
-      render json: { errors: @like.errors.full_messages }, status: :unauthorized
+      render json: { message: 'Dislike', liked: false }
     end
   end
 end
