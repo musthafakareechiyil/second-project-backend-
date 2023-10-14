@@ -16,7 +16,6 @@ class User::PostsController < ApplicationController
 
     posts = []
 
-    # 
     @posts.each do |post|
       liked = @current_user.liked?(post)
       post_data = post.as_json(

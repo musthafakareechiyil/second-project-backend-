@@ -40,14 +40,13 @@ class User < ApplicationRecord
   end
 
   def like(likable_type, likable_id)
-    like = Like.find_by(likable_id:, likable_type:)
-    likable = likable_type.constantize.find(likable_id)
+    like = likes.find_by(likable_type:, likable_id:)
 
     if like
-      like.destroy
+      like.destroy if like.user == self
       false
     else
-      likes.create(likable:)
+      likes.create(likable_type:, likable_id:)
       true
     end
   end
