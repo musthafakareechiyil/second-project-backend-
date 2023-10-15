@@ -19,13 +19,15 @@ class User::UsersController < ApplicationController
         following_count = @user.following.count
         followers_count = @user.followers.count
         post_count = @user.posts.count
+        is_following = @current_user.following?(@user)
 
         render json: {
           user: @user.as_json,
           posts:,
           following_count:,
           followers_count:,
-          post_count:
+          post_count:,
+          is_following:
         }        
     end
 
