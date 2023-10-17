@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :index, :destroy]
 
     # Routes for LikesController
-    resources :likes, only: [:create]
+    resources :likes, only: [:create, :index]
 
   end
 
