@@ -14,23 +14,38 @@ class User::UsersController < ApplicationController
     end
 
     def show
-        @user = User.find_by(username: params[:username])
-        posts = @user.posts.order(created_at: :desc)
-        following_count = @user.following.count
-        followers_count = @user.followers.count
-        post_count = @user.posts.count
-        is_following = @current_user.following?(@user)
-
-        render json: {
-          user: @user.as_json,
-          posts:,
-          following_count:,
-          followers_count:,
-          post_count:,
-          is_following:
-        }        
+      @user = User.find_by(username: params[:username])
+      posts = @user.posts.order(created_at: :desc)
+      following_count = @user.following.count
+      followers_count = @user.followers.count
+      post_count = @user.posts.count
+      is_following = @current_user.following?(@user)
+    
+      # Create an array to store posts with 'liked' information
+      posts_with_liked = []
+      # iterating over posts
+      posts.each do |post|
+        liked = @current_user.liked?(post)
+        post_data = post.as_json(
+          only: [:id, :user_id, :post_url, :caption, :likes_count, :comments_count],
+          methods: [:likes_count, :comments_count]
+        )
+        post_data['liked'] = liked
+        posts_with_liked << post_data
+      end
+    
+      render json: {
+        user: @user.as_json(
+          only: [:id, :email, :phone, :username, :profile_url, :fullname]
+        ),
+        posts: posts_with_liked, # Include the posts with 'liked' information
+        following_count:,
+        followers_count:,
+        post_count:,
+        is_following:
+      }        
     end
-
+    
     def create 
         @user = User.new(user_params)
         @user.phone = "+91"+@user.phone if @user.phone.present?
