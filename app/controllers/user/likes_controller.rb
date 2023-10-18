@@ -7,7 +7,10 @@ class User::LikesController < ApplicationController
     # page params for pagination
     page = params[:page] || 1
 
-    @likes = Like.where(likable_id:, likable_type:).includes(:user).page(page).per(20)
+    @likes = Like.where(likable_id:, likable_type:)
+                 .includes(:user)
+                 .page(page)
+                 .per(20)
 
     # likes with user data
     render json: @likes.to_json(
