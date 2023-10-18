@@ -16,7 +16,7 @@ class User::LikesController < ApplicationController
     render json: @likes.to_json(
       only: [:id, :user_id],
       include: {
-        user: { only: [:id, :username, :profile_url] }
+        user: { only: [:id, :username, :profile_url, :fullname] }
       }
     )
   end
