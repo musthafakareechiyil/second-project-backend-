@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     # Routes for FollowController
     get 'followers', to: 'follow#followers'
+    get 'following', to: 'follow#following'
     post ':username/follow_user', to: 'follow#follow_user'
     post ':username/unfollow_user', to: 'follow#unfollow_user'
 

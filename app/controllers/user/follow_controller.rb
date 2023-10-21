@@ -7,6 +7,14 @@ class User::FollowController < ApplicationController
     )
   end
 
+  def following
+    @user = User.find(params[:id])
+    @following = @user.following
+    render json: @following.to_json(
+      only: [:id, :username, :profile_url, :fullname]
+    )
+  end
+
   def follow_user
     @other_user = User.find_by! username: params[:username]
 
