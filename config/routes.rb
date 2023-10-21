@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # USER SIDE ROUTES
   namespace :user do
     # Routes for CommentsController
-    resources :comments, only: [:index, :create]
+    resources :comments, only: [:create]
 
     # Routes for FollowController
     get 'followers', to: 'follow#followers'
