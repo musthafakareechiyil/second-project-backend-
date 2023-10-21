@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  # User side Routes
+  # USER SIDE ROUTES
   namespace :user do
     # Routes for CommentsController
     resources :comments, only: [:index, :create]
 
     # Routes for FollowController
+    get 'followers', to: 'follow#followers'
     post ':username/follow_user', to: 'follow#follow_user'
     post ':username/unfollow_user', to: 'follow#unfollow_user'
 
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
 
   end
 
-  # Admin side Routes
+  # ADMIN SIDE ROUTES
   namespace :admin do
     # Route for AuthenticationController
     post 'login', to: 'authentication#login'
