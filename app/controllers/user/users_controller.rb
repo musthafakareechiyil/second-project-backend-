@@ -71,6 +71,18 @@ class User::UsersController < ApplicationController
         end
     end
 
+    def search
+      page = params[:page]
+      key = params[:key].downcase
+      @user = User.where("username LIKE ?", "%#{key}%").order(created_at: :desc)
+                  .page(page)
+                  .per(10)
+                  
+      render json: @user.to_json(
+        only: [:id, :username, :profile_url, :fullname]
+      )
+    end
+
     private 
 
     def user_params 

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :index]
     get 'user/:username', to: 'users#show'
     patch 'update_profile', to: 'users#update_profile'
+    get 'search', to: 'users#search'
 
     # Route for AuthenticationController
     post 'login', to: 'authentication#login'
