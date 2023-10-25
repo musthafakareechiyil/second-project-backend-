@@ -22,10 +22,12 @@ class User::PostsController < ApplicationController
         only: [:id, :post_url, :caption, :user_id],
         include: {
           user: { only: [:id, :profile_url, :username] }
-        },
-        methods: [:likes_count, :comments_count]
+        }
       )
       post_data["liked"] = liked
+      post_data["likes_count"] = post.likes.count
+      post_data["comments_count"] = post.comments.count
+
       posts << post_data
     end
 

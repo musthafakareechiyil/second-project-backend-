@@ -21,24 +21,31 @@ class User::UsersController < ApplicationController
       post_count = @user.posts.count
       is_following = @current_user.following?(@user)
     
-      # Create an array to store posts with 'liked' information
+      # Create an array to store posts with 'liked?, likes_count and comments_count' information
       posts_with_liked = []
       # iterating over posts
       posts.each do |post|
+            
         liked = @current_user.liked?(post)
-        post_data = post.as_json(
-          only: [:id, :user_id, :post_url, :caption, :likes_count, :comments_count],
-          methods: [:likes_count, :comments_count]
+        likes_count = post.likes.count
+        comments_count = post.comments.count
+
+        posts_with_liked.push(
+          id: post.id,
+          user_id: post.user_id,
+          post_url: post.post_url, 
+          caption: post.caption, 
+          likes_count:, 
+          comments_count:, 
+          liked:
         )
-        post_data['liked'] = liked
-        posts_with_liked << post_data
       end
     
       render json: {
         user: @user.as_json(
           only: [:id, :email, :phone, :username, :profile_url, :fullname]
         ),
-        posts: posts_with_liked, # Include the posts with 'liked' information
+        posts: posts_with_liked, 
         following_count:,
         followers_count:,
         post_count:,

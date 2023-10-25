@@ -5,8 +5,4 @@ class Post < ApplicationRecord
   has_many :likes, as: :likable, dependent: :destroy
 
   validates :post_url, presence: true
-
-  delegate :count, to: :likes, prefix: true
-
-  delegate :count, to: :comments, prefix: true
 end
