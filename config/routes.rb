@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # Cable route
+  mount ActionCable.server => "/cable"
+
   # USER SIDE ROUTES
   namespace :user do
     # Routes for CommentsController
@@ -25,6 +28,10 @@ Rails.application.routes.draw do
 
     # Routes for LikesController
     resources :likes, only: [:create, :index]
+
+    # Routes for ChatsController
+    resources :chats, only: [:index, :create]
+    get 'chatted_users', to: 'chats#chatted_users'
 
   end
 

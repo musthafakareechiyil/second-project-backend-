@@ -54,4 +54,8 @@ class User < ApplicationRecord
   def liked?(post)
     likes.exists?(likable: post)
   end
+
+  # relation with Chat
+  has_one :sent_chat, class_name: 'Chat', foreign_key: 'sender_id', dependent: :destroy, inverse_of: :sender
+  has_one :received_chat, class_name: 'Chat', foreign_key: 'receiver_id', dependent: :destroy, inverse_of: :receiver
 end

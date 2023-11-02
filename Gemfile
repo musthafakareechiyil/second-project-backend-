@@ -45,3 +45,6 @@ gem "kaminari", "~> 1.2"
 
 # For serialization
 gem "jsonapi.rb", "~> 2.0"
+
+# For chat
+gem "redis", "~> 5.0"
