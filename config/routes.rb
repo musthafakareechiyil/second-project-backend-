@@ -33,6 +33,9 @@ Rails.application.routes.draw do
     resources :chats, only: [:index, :create]
     get 'chatted_users', to: 'chats#chatted_users'
 
+    # Routes for SavedPostsController
+    resources :saved_posts, only: [:index, :create, :destroy]
+
   end
 
   # ADMIN SIDE ROUTES
