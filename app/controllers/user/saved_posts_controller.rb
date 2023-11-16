@@ -2,7 +2,14 @@ class User::SavedPostsController < ApplicationController
   def index
     saved_posts = @current_user.saved_posts.includes(:post)
 
-    render json: saved_posts.as_json(include: [:post])
+    render json: saved_posts.as_json(
+      only: [:id, :user_id, :post_id],
+      include: {
+        post: {
+          only: [:user_id, :post_url, :caption]
+        }
+      }
+    )
   end
 
   def create
