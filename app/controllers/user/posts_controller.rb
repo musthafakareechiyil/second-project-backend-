@@ -1,5 +1,4 @@
 class User::PostsController < ApplicationController
-  include JSONAPI::Fetching
 
   def index
     page = params[:page] || 1
@@ -59,9 +58,5 @@ class User::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:post_url, :caption)
-  end
-
-  def jsonapi_include
-    super & ['users']
   end
 end
