@@ -1,5 +1,4 @@
 class User::PostsController < ApplicationController
-
   def index
     page = params[:page] || 1
 
