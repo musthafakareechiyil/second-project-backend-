@@ -29,6 +29,7 @@ class User::UsersController < ApplicationController
         liked = @current_user.liked?(post)
         likes_count = post.likes.count
         comments_count = post.comments.count
+        saved = @current_user.saved_posts.exists?(post_id: post.id)
 
         posts_with_liked.push(
           id: post.id,
@@ -37,7 +38,8 @@ class User::UsersController < ApplicationController
           caption: post.caption, 
           likes_count:, 
           comments_count:, 
-          liked:
+          liked:,
+          saved:
         )
       end
     

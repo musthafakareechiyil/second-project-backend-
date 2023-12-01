@@ -17,6 +17,8 @@ class User::PostsController < ApplicationController
 
     @posts.each do |post|
       liked = @current_user.liked?(post)
+      saved = @current_user.saved_posts.exists?(post_id: post.id)
+      p saved
       post_data = post.as_json(
         only: [:id, :post_url, :caption, :user_id],
         include: {
@@ -24,6 +26,7 @@ class User::PostsController < ApplicationController
         }
       )
       post_data["liked"] = liked
+      post_data["saved"] = saved
       post_data["likes_count"] = post.likes.count
       post_data["comments_count"] = post.comments.count
 

@@ -17,7 +17,7 @@ class User::SavedPostsController < ApplicationController
     saved_post = @current_user.saved_posts.build(post:)
 
     if saved_post.save
-      render json: { message: 'Post saved successfully' }, status: :created
+      render json: { message: 'Post saved successfully', saved: true}, status: :created
     else
       render json: { error: 'Failed to save Post ' }, status: :unprocessable_entity
     end
@@ -28,12 +28,11 @@ class User::SavedPostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:post_id])
-    saved_post = @current_user.saved_posts.find_by(post:)
+    saved_post = @current_user.saved_posts.find_by(post_id: params[:id])
 
     if saved_post
       if saved_post.destroy
-        render json: { message: 'Post removed from saved posts' }
+        render json: { message: 'Post removed from saved posts', saved: false }
       else
         render json: { error: 'Failed to remove from saved posts' }, status: :unprocessable_entity
       end
