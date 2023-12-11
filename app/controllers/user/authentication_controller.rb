@@ -5,7 +5,7 @@ class User::AuthenticationController < ApplicationController
     def login
         if params[:google_token]
             google_token = params[:google_token]
-            id_token = Google::Auth::IDTokens.verify_oidc(google_token, aud:'439877519923-qpmbcqt3gb88svahhi65hnal1nkelfc6.apps.googleusercontent.com')
+            id_token = Google::Auth::IDTokens.verify_oidc(google_token, aud:'908497929171-j1b1gpbd3vp8ct6vb2l4qbp9t3fe117e.apps.googleusercontent.com')
 
             if id_token
                 email = id_token['email']
